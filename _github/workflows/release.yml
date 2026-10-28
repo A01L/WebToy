@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check version matches tag
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          VER=$(jq -r .version manifest.json)
+          if [ "$TAG" != "$VER" ]; then
+            echo "Tag v$TAG does not match manifest version $VER" >&2
+            exit 1
+          fi
+
+      - name: Build zip
+        run: zip -r "webtoy-${GITHUB_REF_NAME#v}.zip" manifest.json icons src LICENSE
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: webtoy-*.zip
+          generate_release_notes: true

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WebToy - настройки</title>
+  <link rel="icon" href="../../icons/icon32.png">
+  <link rel="stylesheet" href="../ui.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <img class="logo big" src="../../icons/logo.svg" alt="">
+      <div class="hero-txt">
+        <h1>WebToy</h1>
+        <p>Пипетка, галерея и шрифты - на любом сайте, в одной боковой панели.</p>
+      </div>
+      <a class="author-card" href="https://github.com/A01L" target="_blank" rel="noopener">
+        <span class="gh"><svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></span>
+        <span class="ac-txt"><small>Автор</small><b>github.com/A01L</b></span>
+        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+      </a>
+    </header>
+
+    <section class="group">
+      <h2>Навигация</h2>
+      <div class="opt">
+        <div class="o-txt"><b>Показывать навигацию на сайтах</b><small>Изогнутая панель у края экрана с пипеткой, галереей и шрифтами</small></div>
+        <label class="switch"><input type="checkbox" data-key="enabled"><i></i></label>
+      </div>
+      <div class="opt">
+        <div class="o-txt"><b>Сторона экрана</b><small>Сайдбары галереи и шрифтов всегда открываются слева</small></div>
+        <div class="seg" data-key="side"><button data-v="left">Слева</button><button data-v="right">Справа</button></div>
+      </div>
+      <div class="opt">
+        <div class="o-txt"><b>Сворачивать в тонкую полоску</b><small>Панель раскрывается при наведении курсора</small></div>
+        <label class="switch"><input type="checkbox" data-key="autoCollapse"><i></i></label>
+      </div>
+      <div class="opt">
+        <div class="o-txt"><b>Подписи при наведении</b><small>Крупная подпись рядом с иконкой - «ПИПЕТКА», «ГАЛЕРЕЯ»…</small></div>
+        <label class="switch"><input type="checkbox" data-key="showLabels"><i></i></label>
+      </div>
+      <div class="opt">
+        <div class="o-txt"><b>Положение по вертикали</b><small>Панель также можно перетащить мышью прямо на сайте</small></div>
+        <div class="range-wrap"><input type="range" class="range" min="5" max="95" data-key="offsetY"><span id="offsetVal" class="mono"></span></div>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Внешний вид</h2>
+      <div class="opt">
+        <div class="o-txt"><b>Тема панелей</b><small>Цвет сайдбаров и палитры на страницах</small></div>
+        <div class="seg" data-key="theme"><button data-v="dark">Тёмная</button><button data-v="light">Светлая</button><button data-v="auto">Как в системе</button></div>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Пипетка</h2>
+      <div class="opt">
+        <div class="o-txt"><b>Формат копирования</b><small>Цвет копируется в буфер сразу после выбора пипеткой</small></div>
+        <div class="seg" data-key="colorFormat"><button data-v="hex">HEX</button><button data-v="rgb">RGB</button><button data-v="hsl">HSL</button><button data-v="oklch">OKLCH</button></div>
+      </div>
+      <div class="opt">
+        <div class="o-txt"><b>Сохранённые палитры и история</b><small id="palInfo">-</small></div>
+        <div class="btns"><button class="btn" id="exportPal">Экспорт</button><button class="btn danger" id="clearPal">Очистить</button></div>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Шрифты</h2>
+      <div class="opt col">
+        <div class="o-txt"><b>Текст для превью по умолчанию</b><small>Его можно менять и прямо в сайдбаре</small></div>
+        <input class="text" data-key="previewText" maxlength="200">
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Отключённые сайты</h2>
+      <div id="sites" class="sites"></div>
+    </section>
+
+    <section class="group">
+      <h2>Горячие клавиши</h2>
+      <div id="keys" class="keys"></div>
+      <div class="opt"><div class="o-txt"><small>Изменить сочетания можно на странице расширений браузера.</small></div><button class="btn" id="shortcuts">Изменить</button></div>
+    </section>
+
+    <footer class="foot">
+      <span>WebToy v<span id="ver"></span></span>
+      <span>Сделано <a href="https://github.com/A01L" target="_blank" rel="noopener">A01L</a></span>
+    </footer>
+  </div>
+  <div class="saved" id="saved">Сохранено</div>
+  <script src="options.js"></script>
+</body>
+</html>

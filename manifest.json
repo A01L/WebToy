@@ -1,0 +1,68 @@
+{
+  "manifest_version": 3,
+  "name": "WebToy - пипетка, галерея, шрифты",
+  "short_name": "WebToy",
+  "version": "1.0.0",
+  "description": "Боковая навигация на любом сайте: пипетка с палитрой, галерея всех изображений и шрифты страницы.",
+  "author": "https://github.com/A01L",
+  "homepage_url": "https://github.com/A01L",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "WebToy",
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "options_ui": {
+    "page": "src/options/options.html",
+    "open_in_tab": true
+  },
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "permissions": ["storage", "downloads", "activeTab", "clipboardWrite"],
+  "host_permissions": ["<all_urls>"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "run_at": "document_idle",
+      "all_frames": false,
+      "js": [
+        "src/content/core.js",
+        "src/content/color.js",
+        "src/content/styles.js",
+        "src/content/nav.js",
+        "src/content/picker.js",
+        "src/content/gallery.js",
+        "src/content/fonts.js",
+        "src/content/main.js"
+      ]
+    }
+  ],
+  "commands": {
+    "toggle-nav": {
+      "suggested_key": { "default": "Alt+Shift+W" },
+      "description": "Показать / скрыть навигацию WebToy"
+    },
+    "open-picker": {
+      "suggested_key": { "default": "Alt+Shift+C" },
+      "description": "Открыть пипетку"
+    },
+    "open-gallery": {
+      "suggested_key": { "default": "Alt+Shift+G" },
+      "description": "Открыть галерею"
+    },
+    "open-fonts": {
+      "suggested_key": { "default": "Alt+Shift+F" },
+      "description": "Открыть шрифты"
+    }
+  }
+}
